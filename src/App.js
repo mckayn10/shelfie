@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Dashboard from './component/Dashboard/Dashboard';
+import Form from './component/Form/Form';
+import Header from './component/Header/Header';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
-  render() {
+  constructor(){
+    super()
+
+    this.state = {
+      inventoryList: []
+    }
+  }
+
+  componentDidMount(){
+    axios.get('http://localhost:8080/api/inventory')
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(err => {
+      console.log('error getting data', err)
+    })
+  }
+
+  getInventoryList(){
+    axios.get('http://localhost:8080/api/inventory')
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(err => {
+      console.log('error getting data', err)
+    })
+  }
+  
+  render() { 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <div>
+          <Header />
+        </div>
+        <div className="body-container">
+          <div>
+            <Dashboard inventory={this.state.inventoryList}/>
+          </div>
+          <div>
+            <Form getUpdatedInventory={this.getInventoryList} />
+          </div>
+        </div>
       </div>
     );
   }
