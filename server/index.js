@@ -24,6 +24,8 @@ app.get('/api/inventory', (req, res) => controller.getInventory(req, res))
 
 app.post('/api/product', (req, res) => controller.createProduct(req, res))
 
+app.delete('/api/delete/:id', (req, res) => controller.deleteProduct(req, res))
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
